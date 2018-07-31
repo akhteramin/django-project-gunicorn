@@ -1,0 +1,63 @@
+{% extends "main.html" %}
+{% load static from staticfiles %}
+{% block content %}
+<div class="login-container row">
+
+    <div class="col-md-7">
+
+            <div class="form-login" id="login">
+
+                <img
+                   src="{% static 'ipay-merchant/images/ipay-logo.png' %}"
+                   alt="Document"
+                   height="40"
+                   width="auto"
+                   class="img-rounded"
+                >
+                <p class="text-center"> Welcome to POS panel </p>
+                <p class="text-center">Please enter merchant mobile number, user name and password to login.</p>
+                <form class="form-horizontal" name="LoginForm" action="{% url 'ipay-merchant:accounts' %}" method="post">
+                    {% csrf_token %}
+                    {% if next %}
+                        <input type="hidden"  name="next" value="{{ next }}" />
+                    {% endif %}
+
+                    <div class="control-group">
+                        <div class="text-center" style="color:red;">{{ error }} </div>
+                        <label class="control-label" for="mobileNumber">Merchant Mobile Number</label>
+                        <div class="controls">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">+88</span>
+                              </div>
+                              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="mobileNumber" name="mobileNumber"  placeholder="01*********">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="merchantUsername">Username</label>
+                        <div class="controls">
+                            <input type="text" class="form-control input-sm chat-input" id="merchantUsername" name="merchantUsername"  placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password">Password</label>
+                        <div class="controls">
+                            <input type="password" class="form-control input-sm chat-input" name="password" id="password" placeholder="Password">
+                        </div>
+                    </div>
+                    </br>
+                    <div class="wrapper">
+                        <button id="merchant_user_login" type="submit" class="login">Sign In</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    <link href="{% static 'ipay-merchant/css/login_body.css' %}"
+          rel="stylesheet" media="screen">
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="Cocoa HTML Writer">
+    <meta name="CocoaVersion" content="1404.46">
+    <link rel="icon" type="image/png" size="32x32"
+          href="{% static 'ipay-merchant/images/favicon.png' %}">
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'ipay-merchant/css/style.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'ipay-merchant/css/jquery.dataTables.min.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'ipay-merchant/css/font-awesome-4.7.0/css/font-awesome.min.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'ipay-merchant/css/themify-icons.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'ipay-merchant/css/main.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'ipay-merchant/css/responsive.bootstrap.min.css' %}"
+          rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="{% static 'ipay-merchant/css/daterangepicker.css' %}" />
+
+    <script src="{% static 'ipay-merchant/js/jquery.min.js' %}"></script>
+    <script src="{% static 'ipay-merchant/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'ipay-merchant/js/responsive.bootstrap.min.js' %}"></script>
+    <script src="{% static 'ipay-merchant/js/moment.min.js' %}"></script>
+    <script src="{% static 'ipay-merchant/js/daterangepicker.min.js' %}"></script>
+
+      <title>iPay POS</title>
+
+    <script src="{% static 'ipay-merchant/js/qrcode.min.js' %}"></script>
+
+
+  </head>
+
+  <body class="app">
+
+    {% block content %}
+    {% endblock %}
+    </div>
+    <script src="{% static 'ipay-merchant/js/csrf_token_header.js' %}"></script>
+    <script src="{% static 'ipay-merchant/template_js/login.js' %}"></script>
+    <script src="{% static 'ipay-merchant/template_js/check_all.js' %}"></script>
+    <script src="{% static 'ipay-merchant/template_js/common.js' %}"></script>
+
+
+
+    <script src="{% static 'ipay-merchant/js/tether.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+  </body>
+</html>

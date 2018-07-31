@@ -1,0 +1,137 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+{% include "menu_bar.html" %}
+{% load pos_datetime %}
+{% load static %}
+<main class="main-content bgc-grey-100">
+    <div class="col-md-12">
+        <br/>
+        <h1>Transaction List</h1>
+        <b> Total Transactions: {{transactionData.totalRecord}} </b>
+    </div>
+
+    <div id="mainContent" class="row bgc-white bd bdrs-3 p-20 mB-10">
+        <div class="col-md-11 offset-md-1 search-content">
+            <form class="form-horizontal" name="UserForm" action="{% url 'ipay-merchant:home' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <input class="form-control pull-right"
+                               {% if searchData.dateRange%}
+                                    value="{{searchData.dateRange}}"
+                               {% endif %}
+                               type="text"
+                               name="dateRange"/>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control pull-right"
+                               {% if searchData.searchText%}
+                                    value={{searchData.searchText}}
+                               {% else %}
+                                    value=""
+                               {% endif %}
+                               placeholder="search text"
+                               type="text" name="searchText" />
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <!--<i style="color:white !important;" class="c-brown-500 ti-search"></i>-->
+                            Search
+                        </button>
+
+                        <a href="?page=1">
+                            <button type="button" class="btn btn-outline-danger">Reset</button>
+                        </a>
+                    </div>
+
+                    <div class="col-md-1">
+                        <a style="color:white !important;" href="?page=1">
+                            <button type="button" class="btn btn-info">
+                                    <i style="color:white !important;" class="c-brown-500 ti-reload"></i>
+                                    Refresh
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+        <div class="col-md-12">
+             <div class="panel panel-default">
+                <div class="panel-body">
+                    <table id="dataTable" class="row-border responsive no-wrap hover" width="100%">
+                          <thead>
+                            <tr>
+                                <th></th>
+                                <th class="text-center">Transaction ID</th>
+                                <th class="text-left">Date</th>
+                                <th>Descrition</th>
+                                <th class="text-center">Gross</th>
+                                <th class="text-center">Status</th>
+                                <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for transaction in transactionData.transactionActivities %}
+                                {% if transaction.serviceId == 6002 or transaction.serviceId == 6005 %}
+                                   <tr>
+                                        <td class="text-center">
+                                             <img class="media-object img-thumbnail" width="64" height="64" style="border-radius: 50%;"
+                                                src="{{imageBaseURL}}{{transaction.otherParty.profilePictures.0.url}}">
+
+                                        </td>
+                                       <td class="text-center">
+                                          {{transaction.transactionId}}
+                                       </td>
+                                       <td class="text-left">
+                                           {{transaction.insertTime | get_date_time:transaction.insertTime}}
+                                       </td>
+                                       <td>{{transaction.description}}</td>
+                                       <td class="text-center">{{transaction.amount}}</td>
+                                       <td class="text-center">
+                                           {% if transaction.statusInWord == 'Success'%}
+                                                <span class="text-success">{{transaction.statusInWord}}</span>
+                                           {% else %}
+                                                <span class="text-danger">{{transaction.statusInWord}}</span>
+                                           {% endif %}
+                                       </td>
+                                       <td>
+                                            <a href="/details/transaction/{{transaction.transactionId}}/" class="btn button-edit" role="button" aria-pressed="true">View Details</a>
+                                       </td>
+
+                                   </tr>
+                                {% endif %}
+                            {% endfor %}
+
+                          </tbody>
+                    </table>
+                </div>
+                 <div class="text-center">
+                     {% if transactionData.hasNext == True %}
+                          <!--<button type="button" class="btn btn-info">Load More</button>-->
+
+                            <a style="color:white !important;"
+                               {% if searchData.dateRange or searchData.searchText%}
+                                    href="?dateRange={{searchData.dateRange}}&&searchText={{searchData.searchText}}&&page={{ pageNo }}"
+                               {% else %}
+                                    href="?page={{ pageNo }}"
+                               {% endif%}
+                            >
+                                <button id="loadMore" type="button" class="btn btn-info">Load More
+                                    <i style="color:white !important;" class="c-brown-500 ti-more"></i>
+                                </button>
+                            </a>
+
+
+                    {% endif %}
+                 </div>
+             </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+{% include "menu_bar.html" %}
+
+
+<main class="main-content bgc-grey-100">
+    <div class="col-md-12">
+        <div id="mainContent" class="row bgc-white bd bdrs-3 p-20 mB-10">
+            <div class="col-md-12 panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-4 offset-md-5">
+                        <input id="text" type="text" hidden="hidden" value="{{mobileNumber}}-{{outletDetails.outletId}}" style="width:80%" /><br />
+                        <div id="qrcode"></div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
